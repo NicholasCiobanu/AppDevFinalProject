@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ExistingListTask">
+
+
+    <TextView
+        android:id="@+id/taskName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="50dp"
+        tools:layout_editor_absoluteX="177dp"
+        tools:layout_editor_absoluteY="36dp" />
+
+
+    <Button
+        android:id="@+id/addItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="200dp"
+        android:text="Add"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="216dp" />
+
+    <EditText
+        android:id="@+id/inputItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Item Name"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="82dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="100dp"/>
+
+    <EditText
+        android:id="@+id/inputItemDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Item Details"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="151dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="150dp"/>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="All items in list"
+        tools:layout_editor_absoluteX="160dp"
+        tools:layout_editor_absoluteY="290dp"
+        android:layout_marginTop="270dp"
+        android:layout_marginLeft="150dp"/>
+
+    <Button
+        android:id="@+id/alltasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="All Tasks"
+        tools:layout_editor_absoluteX="13dp"
+        tools:layout_editor_absoluteY="11dp"
+        android:layout_marginLeft="20dp"/>
+</RelativeLayout>

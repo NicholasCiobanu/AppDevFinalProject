@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ExistingReminderTask">
+    <Button
+        android:id="@+id/alltasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="All Tasks"
+        tools:layout_editor_absoluteX="13dp"
+        tools:layout_editor_absoluteY="11dp" />
+
+    <TextView
+        android:id="@+id/taskName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="50dp"
+        tools:layout_editor_absoluteX="177dp"
+        tools:layout_editor_absoluteY="36dp" />
+
+    <TextView
+        android:id="@+id/reminderObjective"
+        android:layout_width="214dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="140dp"
+        android:text="Reminder Objective" />
+
+    <TextView
+        android:id="@+id/reminderText"
+        android:layout_width="369dp"
+        android:layout_height="167dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="250dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="IF YOU SEE THIS ITS BAD"
+        />
+
+    <TextView
+        android:id="@+id/reminderDelay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reminderText"
+        android:paddingLeft="20dp"
+        android:ems="10"
+        android:hint="Time left until reminder + the time in minutes"
+        android:inputType="time" />
+
+    <Button
+        android:id="@+id/done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reminderDelay"
+        android:layout_marginTop="10dp"
+        android:text="Done" />
+
+    <CheckBox
+        android:id="@+id/reminderCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reminderText"
+        android:layout_marginLeft="240dp"
+        android:text="Reminder" />
+
+
+</RelativeLayout>

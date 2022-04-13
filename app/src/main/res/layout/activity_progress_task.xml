@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProgressTask">
+
+    <Button
+        android:id="@+id/alltasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="All Tasks"
+        tools:layout_editor_absoluteX="13dp"
+        tools:layout_editor_absoluteY="11dp"
+        android:layout_marginLeft="20dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Progress Task"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="175dp"></TextView>
+
+    <EditText
+        android:id="@+id/progressName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Reminder Name"
+        android:layout_marginTop="75dp"
+        android:layout_marginLeft="50dp"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="344dp"
+        android:layout_height="41dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="250dp" />
+
+    <EditText
+        android:id="@+id/minimum"
+        android:layout_width="76dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/progressBar"
+        android:ems="10"
+        android:hint="Min: "
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/maximum"
+        android:layout_width="103dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/progressBar"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="0dp"
+        android:ems="10"
+        android:hint="Max"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/objective"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/minimum"
+
+        android:ems="10"
+        android:hint="Daily Objective: "
+        android:inputType="number" />
+
+
+    <Button
+        android:id="@+id/createTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/objective"
+        android:layout_marginTop="10dp"
+        android:text="Create Task" />
+</RelativeLayout>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReminderTask">
+
+
+    <Button
+        android:id="@+id/alltasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="All Tasks"
+        tools:layout_editor_absoluteX="13dp"
+        tools:layout_editor_absoluteY="11dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reminder"
+        android:layout_marginLeft="175dp"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/reminderObjective"
+        android:layout_width="214dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="140dp"
+        android:text="Reminder Objective" />
+
+    <EditText
+        android:id="@+id/reminderText"
+        android:layout_width="369dp"
+        android:layout_height="167dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="250dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Here you can put what your reminder is about"
+        android:inputType="textMultiLine" />
+
+    <EditText
+        android:id="@+id/reminderDelay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reminderText"
+        android:paddingLeft="20dp"
+        android:ems="10"
+        android:hint="Enter delay in minutes"
+        android:inputType="time" />
+
+    <Button
+        android:id="@+id/createTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reminderDelay"
+        android:layout_marginTop="10dp"
+        android:text="Create Task" />
+
+    <CheckBox
+        android:id="@+id/reminderCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reminderText"
+        android:layout_marginLeft="240dp"
+        android:text="Reminder" />
+
+    <EditText
+        android:id="@+id/reminderName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Reminder Name"
+        android:layout_marginTop="75dp"
+        android:layout_marginLeft="50dp"/>
+</RelativeLayout>
