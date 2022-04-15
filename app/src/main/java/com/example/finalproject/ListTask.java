@@ -23,7 +23,7 @@ public class ListTask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_task);
         Intent intent = getIntent();
-        String taskName = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        String taskName = intent.getStringExtra("name");
         TextView textView = findViewById(R.id.taskName);
         textView.setText(taskName);
         Button button = (Button) findViewById(R.id.alltasks);

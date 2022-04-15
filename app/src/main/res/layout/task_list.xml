@@ -18,4 +18,9 @@
         android:layout_gravity="center"
         />
 
+    <Button
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:text="X"
+        android:id="@+id/delete"></Button>
 </LinearLayout>

@@ -39,8 +39,7 @@
         android:layout_marginTop="250dp"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="IF YOU SEE THIS ITS BAD"
-        />
+        android:hint="IF YOU SEE THIS ITS BAD" />
 
     <TextView
         android:id="@+id/reminderDelay"

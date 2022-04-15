@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,8 +16,10 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
-    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+    //public static final String name = "com.example.myfirstapp.MESSAGE";
     Context context;
     String newTaskType = "";
     String taskName = "";
@@ -24,7 +27,9 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerAdapter adapter;
 
-    String[] monthNames = {
+    ArrayList<String[]> allTasks = new ArrayList<>();
+
+    String[] tasks = {
             "January", "February", "March",
             "April", "May", "June",
             "July", "August", "September",
@@ -37,10 +42,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         DB = new DBHelper(this);
+        Cursor res = DB.getTasks();
+
+        if(res.getCount() == 0) {
+            Toast.makeText(MainActivity.this, "No Entry Exists", Toast.LENGTH_SHORT).show();
+
+        }
+
+        StringBuffer buffer = new StringBuffer();
+
+        while(res.moveToNext()) {
+            allTasks.add(new String[]{ res.getString(0), res.getString(1), res.getString(2)});
+            /*
+            buffer.append("Name: " + res.getString(0) + "\n");
+            buffer.append("Type: " + res.getString(1) + "\n");
+            buffer.append("Date of Birth: " + res.getString(2) + "\n\n");
+            */
+        }
+
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new RecyclerAdapter(this, monthNames);
+        adapter = new RecyclerAdapter(this, allTasks);
         recyclerView.setAdapter(adapter);
+
 
 
         FloatingActionButton addTaskButton = (FloatingActionButton ) findViewById(R.id.addTask);
@@ -54,15 +78,15 @@ public class MainActivity extends AppCompatActivity {
                     switch (newTaskType) {
                         case "list":
                             intent = new Intent(v.getContext(), ListTask.class);
-                            createNewTask(intent);
+                            createNewTask(intent, "list");
                             break;
                         case "progress":
                             intent = new Intent(v.getContext(),  ProgressTask.class);
-                            createNewTask(intent);
+                            createNewTask(intent, "progress");
                             break;
                         case "reminder":
                             intent = new Intent(v.getContext(), ReminderTask.class);
-                            createNewTask(intent);
+                            createNewTask(intent, "reminder");
                             break;
                         default:
                             Toast.makeText(v.getContext(), "No list type selected", Toast.LENGTH_LONG).show();
@@ -75,12 +99,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void createNewTask(Intent intent){
+    private void createNewTask(Intent intent, String type){
 
+    DB.addTask(type, taskName);
+    Cursor res = DB.getTask(taskName);
+    res.moveToNext();
+    intent.putExtra("id", res.getString(0));
+    intent.putExtra("name", taskName);
+    intent.putExtra("type", type);
 
-
-    intent.putExtra(EXTRA_MESSAGE, taskName);
     startActivity(intent);
+
     }
 
     public void onRadioButtonClicked(View view) {

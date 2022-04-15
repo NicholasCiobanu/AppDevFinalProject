@@ -14,22 +14,23 @@
         tools:layout_editor_absoluteX="13dp"
         tools:layout_editor_absoluteY="11dp"
         android:layout_marginLeft="20dp"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Progress Task"
+        android:layout_marginLeft="175dp"
         android:layout_marginTop="40dp"
-        android:layout_marginLeft="175dp"></TextView>
+        android:text="Progress Task"></TextView>
 
-    <EditText
-        android:id="@+id/progressName"
+    <TextView
+        android:id="@+id/taskName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="75dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Reminder Name"
-        android:layout_marginTop="75dp"
-        android:layout_marginLeft="50dp"/>
+         />
 
     <ProgressBar
         android:id="@+id/progressBar"
