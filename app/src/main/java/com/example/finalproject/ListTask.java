@@ -11,6 +11,11 @@ import android.widget.TextView;
 
 public class ListTask extends AppCompatActivity {
     Context context;
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
       //  this.context = context;

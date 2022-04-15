@@ -1,6 +1,8 @@
 package com.example.finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,12 +21,28 @@ public class MainActivity extends AppCompatActivity {
     String newTaskType = "";
     String taskName = "";
     DBHelper DB;
+    RecyclerView recyclerView;
+    RecyclerAdapter adapter;
+
+    String[] monthNames = {
+            "January", "February", "March",
+            "April", "May", "June",
+            "July", "August", "September",
+            "October", "November", "December"
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
        // this.context = context;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         DB = new DBHelper(this);
+        recyclerView = findViewById(R.id.recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new RecyclerAdapter(this, monthNames);
+        recyclerView.setAdapter(adapter);
+
+
         FloatingActionButton addTaskButton = (FloatingActionButton ) findViewById(R.id.addTask);
         addTaskButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -58,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createNewTask(Intent intent){
+
+
 
     intent.putExtra(EXTRA_MESSAGE, taskName);
     startActivity(intent);

@@ -14,34 +14,42 @@
         android:layout_y="55dp"
         android:text="Your TODO List" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginTop="40dp" />
 
-    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    <RadioGroup
+        android:id="@+id/choices"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/choices"
-        android:layout_marginTop="400dp">
+        android:layout_below="@+id/newTaskName"
 
-        <RadioButton android:id="@+id/listTask"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/listTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New List"
+            android:onClick="onRadioButtonClicked"
             android:paddingRight="20dp"
-            android:onClick="onRadioButtonClicked"
-            />
-        <RadioButton android:id="@+id/progressTask"
+            android:text="New List" />
+
+        <RadioButton
+            android:id="@+id/progressTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Progress"
+            android:onClick="onRadioButtonClicked"
             android:paddingRight="20dp"
-            android:onClick="onRadioButtonClicked"
-            />
-        <RadioButton android:id="@+id/reminderTask"
+            android:text="New Progress" />
+
+        <RadioButton
+            android:id="@+id/reminderTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Reminder"
             android:onClick="onRadioButtonClicked"
-            />
+            android:text="New Reminder" />
     </RadioGroup>
 
 
@@ -63,7 +71,10 @@
         android:id="@+id/newTaskName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="350dp"
+
+
+        android:layout_below="@+id/recyclerview"
+
         android:ems="10"
         android:inputType="textPersonName"
         android:text="New Task Name" />

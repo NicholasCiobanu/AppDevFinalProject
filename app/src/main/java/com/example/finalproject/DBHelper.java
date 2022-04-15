@@ -15,23 +15,31 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase DB) {
-        DB.execSQL("create Table Userdetails(name TEXT primary key, contact TEXT, dob TEXT)");
+        DB.execSQL("create Table allTasks(taskID INTEGER primary key, type TEXT, name TEXT)");
+        //DB.execSQL("create Table listTasks(taskID INTEGER primary key, contact TEXT, dob TEXT,FOREIGN KEY(taskID) REFERENCES allTasks(taskID))");
+        DB.execSQL("create Table reminderTasks(taskID INTEGER primary key, name TEXT, objective TEXT,content TEXT,notification INTEGER,notificationDelay INTEGER," +
+                "FOREIGN KEY(taskID) REFERENCES allTasks(taskID))");
+        //DB.execSQL("create Table progressTasks(taskID INTEGER primary key, contact TEXT, dob TEXT,FOREIGN KEY(taskID) REFERENCES allTasks(taskID))");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase DB, int i, int i1) {
-        DB.execSQL("drop Table if exists Userdetails");
+        DB.execSQL("drop Table if exists reminderTasks");
     }
 
-    public Boolean insertuserdata(String name, String contact, String dob) {
+    public Boolean addReminder(int taskID, String name, String objective, String content, int notification, int notificationDelay){
+
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
+        contentValues.put("taskID", taskID);
         contentValues.put("name", name);
-        contentValues.put("contact", contact);
-        contentValues.put("dob", dob);
+        contentValues.put("objective", objective);
+        contentValues.put("content", content);
+        contentValues.put("notification", notification);
+        contentValues.put("notificationDelay", notificationDelay);
 
-        long result = DB.insert("Userdetails", null, contentValues);
+        long result = DB.insert("reminderTasks", null, contentValues);
 
         if(result == -1)
             return false;
@@ -39,17 +47,22 @@ public class DBHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    public Boolean updateuserdata(String name, String contact, String dob) {
+    public Boolean updateReminder(int taskID,String name, String objective, String content, int notification, int notificationDelay){
+
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put("contact", contact);
-        contentValues.put("dob", dob);
+        contentValues.put("taskID", taskID);
+        contentValues.put("name", name);
+        contentValues.put("objective", objective);
+        contentValues.put("content", content);
+        contentValues.put("notification", notification);
+        contentValues.put("notificationDelay", notificationDelay);
 
-        Cursor cursor = DB.rawQuery("Select * from Userdetails where name = ?", new String[] { name } );
+        Cursor cursor = DB.rawQuery("Select * from reminderTasks where taskID = ?", new String[] { taskID + "" } );
 
         if(cursor.getCount() > 0) {
-            long result = DB.update("Userdetails", contentValues, "name=?", new String[] { name } );
+            long result = DB.update("reminderTasks", contentValues, "taskID=?", new String[] { taskID + "" } );
 
             if(result == -1)
                 return false;
@@ -62,15 +75,15 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public Boolean deletedata (String name) {
+    public Boolean deleteReminder(Integer taskID){
 
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
-        Cursor cursor = DB.rawQuery("Select * from Userdetails where name = ?", new String[] { name } );
+        Cursor cursor = DB.rawQuery("Select * from reminderTasks where taskID = ?", new String[] { taskID + "" } );
 
         if(cursor.getCount() > 0) {
-            long result = DB.delete("Userdetails", "name=?", new String[] { name } );
+            long result = DB.delete("reminderTasks", "taskID=?", new String[] { taskID + "" } );
 
             if(result == -1)
                 return false;
@@ -80,6 +93,13 @@ public class DBHelper extends SQLiteOpenHelper {
         } else {
             return false;
         }
+    }
+
+    public Cursor getReminder(Integer taskID){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor = DB.rawQuery("Select * from reminderTasks where taskID = ?", new String[] { taskID + "" } );
+
+        return cursor;
     }
 
     public Cursor getdata() {
