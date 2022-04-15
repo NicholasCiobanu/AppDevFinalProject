@@ -39,17 +39,16 @@
         android:layout_marginTop="250dp"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="IF YOU SEE THIS ITS BAD" />
+        android:hint="EMPTY CONTENTS" />
 
     <TextView
         android:id="@+id/reminderDelay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/reminderText"
-        android:paddingLeft="20dp"
         android:ems="10"
-        android:hint="Time left until reminder + the time in minutes"
-        android:inputType="time" />
+
+        android:paddingLeft="20dp" />
 
     <Button
         android:id="@+id/done"

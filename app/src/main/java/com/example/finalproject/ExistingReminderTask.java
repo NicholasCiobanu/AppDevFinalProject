@@ -28,8 +28,8 @@ public class ExistingReminderTask extends AppCompatActivity {
         taskID = intent.getStringExtra("id");
         objective = intent.getStringExtra("objective");
         content = intent.getStringExtra("content");
-        notification = intent.getIntExtra("notification",2);
-        notificationDelay = intent.getIntExtra("notificationDelay",2);
+        notification = Integer.parseInt(intent.getStringExtra("notification"));
+        notificationDelay = Integer.parseInt(intent.getStringExtra("notificationDelay"));
         TextView taskNameView = findViewById(R.id.taskName);
         taskNameView.setText(taskName);
         TextView objectiveView = findViewById(R.id.reminderObjective);
@@ -41,7 +41,7 @@ public class ExistingReminderTask extends AppCompatActivity {
             notificationView.setChecked(true);
         }
         TextView notificationDelayView = findViewById(R.id.reminderDelay);
-        notificationDelayView.setText(notificationDelay);
+        notificationDelayView.setText(notificationDelay + "");
 
         Button button = (Button) findViewById(R.id.alltasks);
         button.setOnClickListener(new View.OnClickListener() {

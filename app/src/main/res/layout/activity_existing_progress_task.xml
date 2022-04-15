@@ -43,8 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/progressBar"
         android:ems="10"
-        android:hint="Min: "
-        android:inputType="number" />
+        android:hint="Min: " />
 
     <TextView
         android:id="@+id/maximum"
@@ -54,8 +53,7 @@
         android:layout_marginLeft="250dp"
         android:layout_marginTop="0dp"
         android:ems="10"
-        android:hint="Max"
-        android:inputType="number" />
+        android:hint="Max" />
 
     <TextView
         android:id="@+id/objective"
@@ -64,8 +62,7 @@
         android:layout_below="@+id/minimum"
         android:layout_marginTop="5dp"
         android:ems="10"
-        android:hint="Daily Objective: "
-        android:inputType="number" />
+        android:hint="Daily Objective: " />
 
     <TextView
         android:id="@+id/textView3"

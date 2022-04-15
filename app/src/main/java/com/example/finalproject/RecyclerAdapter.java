@@ -3,6 +3,7 @@ package com.example.finalproject;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,16 +54,51 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
             @Override
             public void onClick(View view) {
-                DBHelper DB.get typt
-                Intent intent = new Intent(v.getContext(), ExistingReminderTask.class);
-                intent.putExtra("id", taskID);
-                intent.putExtra("name", taskName);
-                intent.putExtra("type", taskType);
-                intent.putExtra("objective", objective.getText().toString());
-                intent.putExtra("content", content.getText().toString());
-                intent.putExtra("notification", notification);
-                intent.putExtra("notificationDelay", Integer.parseInt(notificationDelay.getText().toString()));
-                startActivity(intent);
+                if (data.get(position)[1].equals("reminder")){
+                    DBHelper DB = new DBHelper(view.getContext());
+                    Cursor res = DB.getTask(data.get(position)[2]);
+                    res.moveToFirst();
+                    Cursor res2 = DB.getReminder(Integer.parseInt(res.getString(0)));
+                    res2.moveToFirst();
+                    Intent intent = new Intent(view.getContext(), ExistingReminderTask.class);
+                    intent.putExtra("id", res2.getString(0));
+                    intent.putExtra("name", res2.getString(1));
+                    intent.putExtra("type", data.get(position)[1]);
+                    intent.putExtra("objective", res2.getString(2));
+                    intent.putExtra("content", res2.getString(3));
+                    intent.putExtra("notification", res2.getString(4));
+                    intent.putExtra("notificationDelay", res2.getString(5));
+                    context.startActivity(intent);
+                }
+                if (data.get(position)[1].equals("progress")){
+                    DBHelper DB = new DBHelper(view.getContext());
+                    Cursor res = DB.getTask(data.get(position)[2]);
+                    res.moveToFirst();
+                    Cursor res2 = DB.getProgress(Integer.parseInt(res.getString(0)));
+                    res2.moveToFirst();
+                    Intent intent = new Intent(view.getContext(), ExistingProgressTask.class);
+                    intent.putExtra("id", res2.getString(0));
+                    intent.putExtra("name", res2.getString(1));
+                    intent.putExtra("type", data.get(position)[1]);
+                    intent.putExtra("min", res2.getString(2));
+                    intent.putExtra("max", res2.getString(3));
+                    intent.putExtra("objective", res2.getString(4));
+
+                    context.startActivity(intent);
+                }
+                if (data.get(position)[1].equals("list")){
+                    DBHelper DB = new DBHelper(view.getContext());
+                    Cursor res = DB.getTask(data.get(position)[2]);
+                    res.moveToFirst();
+                    Cursor res2 = DB.getList(Integer.parseInt(res.getString(0)));
+                    res2.moveToFirst();
+                    Intent intent = new Intent(view.getContext(), ExistingListTask.class);
+                    intent.putExtra("id", res2.getString(0));
+                    intent.putExtra("content", res2.getString(1));
+                    intent.putExtra("name", data.get(position)[2]);
+                    context.startActivity(intent);
+                }
+
             }
         });
     }
