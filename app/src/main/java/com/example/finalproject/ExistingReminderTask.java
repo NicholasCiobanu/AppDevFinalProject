@@ -41,7 +41,7 @@ public class ExistingReminderTask extends AppCompatActivity {
             notificationView.setChecked(true);
         }
         TextView notificationDelayView = findViewById(R.id.reminderDelay);
-        notificationDelayView.setText(notificationDelay + "");
+        notificationDelayView.setText("Time left:" + notificationDelay + "");
 
         Button button = (Button) findViewById(R.id.alltasks);
         button.setOnClickListener(new View.OnClickListener() {

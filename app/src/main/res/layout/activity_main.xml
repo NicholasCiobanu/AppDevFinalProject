@@ -12,7 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_x="167dp"
         android:layout_y="55dp"
-        android:text="Your TODO List" />
+        android:text="Your TODO List"
+        android:textSize="40sp"
+        android:layout_centerHorizontal="true"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"

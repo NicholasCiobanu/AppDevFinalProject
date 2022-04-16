@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class RecyclerAdapter2 extends RecyclerView.Adapter<RecyclerAdapter2.ViewHolder> {
     Context context;
@@ -38,6 +39,9 @@ public class RecyclerAdapter2 extends RecyclerView.Adapter<RecyclerAdapter2.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder,@SuppressLint("RecyclerView") int position) {
         String[] section = data.split("\n");
+        if (data.length() > 1){
+
+
         String[] names = section[0].split(",");
         String[] details = section[1].split(",");
         holder.name.setText(names[position]);
@@ -46,12 +50,47 @@ public class RecyclerAdapter2 extends RecyclerView.Adapter<RecyclerAdapter2.View
         holder.button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 DBHelper DB = new DBHelper(v.getContext());
-                //DB.deleteTask(id);
+
+
+                String[] finalNames = new String[names.length - 1];
+                for (int i = 0, k = 0; i < names.length; i++) {
+
+                    // if the index is
+                    // the removal element index
+                    if (i == position) {
+                        continue;
+                    }
+
+                    // if the index is not
+                    // the removal element index
+                    finalNames[k++] = names[i];
+                }
+                String[] finalDetails = new String[details.length - 1];
+                for (int i = 0, k = 0; i < details.length; i++) {
+
+                    // if the index is
+                    // the removal element index
+                    if (i == position) {
+                        continue;
+                    }
+
+                    // if the index is not
+                    // the removal element index
+                    finalDetails[k++] = details[i];
+                }
+                String content = Arrays.toString(finalNames).replace("[", "").replace("]", "") + "\n" + Arrays.toString(finalDetails).replace("[", "").replace("]", "");
+                DB.updateList(id, content);
                 //remove name and details and redo string and update db
                 Intent intent = new Intent(v.getContext(), MainActivity.class);
                 context.startActivity(intent);
             }
         });
+        }else {
+            DBHelper DB = new DBHelper(context);
+            DB.deleteTask(id);
+            Intent intent = new Intent(context, MainActivity.class);
+            context.startActivity(intent);
+        }
     }
 
 

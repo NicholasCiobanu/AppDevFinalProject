@@ -29,12 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<String[]> allTasks = new ArrayList<>();
 
-    String[] tasks = {
-            "January", "February", "March",
-            "April", "May", "June",
-            "July", "August", "September",
-            "October", "November", "December"
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

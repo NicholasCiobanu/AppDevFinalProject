@@ -22,7 +22,9 @@
         android:layout_height="wrap_content"
         android:text="Reminder"
         android:layout_marginLeft="175dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:textSize="32sp"
+        android:layout_centerHorizontal="true"/>
 
     <EditText
         android:id="@+id/reminderObjective"
@@ -76,6 +78,7 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="75dp"
         android:ems="10"
-
-        android:text="Reminder Name" />
+        android:textSize="32sp"
+        android:text="Reminder Name"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>

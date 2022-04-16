@@ -10,15 +10,14 @@ import androidx.annotation.Nullable;
 
 public class DBHelper extends SQLiteOpenHelper {
     public DBHelper(Context context) {
-        super(context, "Userdata.db", null, 1);
-
+        super(context, "Data.db", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase DB) {
         DB.execSQL("PRAGMA foreign_keys=ON;");
         DB.execSQL("create Table allTasks(taskID INTEGER primary key, type TEXT, name TEXT)");
-        DB.execSQL("create Table listTasks(taskID INTEGER primary key, content TEXT, FOREIGN KEY(taskID) REFERENCES allTasks(taskID))");
+        DB.execSQL("create Table listTasks(taskID INTEGER primary key, content TEXT, FOREIGN KEY(taskID) REFERENCES allTasks(taskID) ON DELETE CASCADE)");
         DB.execSQL("create Table reminderTasks(taskID INTEGER primary key, name TEXT, objective TEXT,content TEXT,notification INTEGER,notificationDelay INTEGER," +
                 "FOREIGN KEY(taskID) REFERENCES allTasks(taskID) ON DELETE CASCADE)");
         DB.execSQL("create Table progressTasks(taskID INTEGER primary key, name TEXT, min INTEGER,max INTEGER, objective TEXT," +
@@ -31,7 +30,14 @@ public class DBHelper extends SQLiteOpenHelper {
         DB.execSQL("drop Table if exists reminderTasks");
         DB.execSQL("drop Table if exists progressTasks");
     }
-
+    @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+        if (!db.isReadOnly()) {
+            // Enable foreign key constraints
+            db.execSQL("PRAGMA foreign_keys=ON;");
+        }
+    }
     public Boolean addTask(String type, String name){
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -137,7 +143,7 @@ public class DBHelper extends SQLiteOpenHelper {
         else
             return true;
     }
-    public Boolean updateReminder(int taskID,String name, String objective, String content, int notification, int notificationDelay){
+    /*public Boolean updateReminder(int taskID,String name, String objective, String content, int notification, int notificationDelay){
 
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -153,6 +159,30 @@ public class DBHelper extends SQLiteOpenHelper {
 
         if(cursor.getCount() > 0) {
             long result = DB.update("reminderTasks", contentValues, "taskID=?", new String[] { taskID + "" } );
+
+            if(result == -1)
+                return false;
+            else
+                return true;
+
+        } else {
+            return false;
+        }
+
+    }*/
+
+    public Boolean updateList(int taskID,String content){
+
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("taskID", taskID);
+        contentValues.put("content", content);
+
+        Cursor cursor = DB.rawQuery("Select * from listTasks where taskID = ?", new String[] { taskID + "" } );
+
+        if(cursor.getCount() > 0) {
+            long result = DB.update("listTasks", contentValues, "taskID=?", new String[] { taskID + "" } );
 
             if(result == -1)
                 return false;
@@ -240,10 +270,5 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return cursor;
     }
-    public Cursor getdata() {
-        SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from Userdetails", null);
 
-        return cursor;
-    }
 }

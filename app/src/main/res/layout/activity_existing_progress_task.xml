@@ -13,19 +13,15 @@
         tools:layout_editor_absoluteX="13dp"
         tools:layout_editor_absoluteY="11dp"
         android:layout_marginLeft="20dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Progress Task"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="175dp"></TextView>
 
     <TextView
         android:id="@+id/taskName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="200dp"
         android:layout_marginTop="50dp"
+        android:textSize="32sp"
         tools:layout_editor_absoluteX="177dp"
         tools:layout_editor_absoluteY="36dp" />
 
@@ -43,6 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/progressBar"
         android:ems="10"
+        android:textSize="32sp"
         android:hint="Min: " />
 
     <TextView
@@ -53,7 +50,8 @@
         android:layout_marginLeft="250dp"
         android:layout_marginTop="0dp"
         android:ems="10"
-        android:hint="Max" />
+        android:hint="Max"
+        android:textSize="32sp"/>
 
     <TextView
         android:id="@+id/objective"
@@ -62,7 +60,8 @@
         android:layout_below="@+id/minimum"
         android:layout_marginTop="5dp"
         android:ems="10"
-        android:hint="Daily Objective: " />
+        android:hint="Daily Objective: "
+        android:textSize="32sp"/>
 
     <TextView
         android:id="@+id/textView3"
@@ -71,7 +70,8 @@
         android:layout_below="@+id/objective"
         android:layout_marginTop="0dp"
         android:layout_marginLeft="40dp"
-        android:text="Add Daily Objective" />
+        android:text="Add Daily Objective"
+        android:textSize="22sp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"

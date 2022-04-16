@@ -14,7 +14,9 @@
         android:layout_marginLeft="200dp"
         android:layout_marginTop="50dp"
         tools:layout_editor_absoluteX="177dp"
-        tools:layout_editor_absoluteY="36dp" />
+        tools:layout_editor_absoluteY="36dp"
+        android:textSize="32sp"
+        android:layout_centerHorizontal="true"/>
 
 
     <Button
@@ -59,7 +61,9 @@
         tools:layout_editor_absoluteX="160dp"
         tools:layout_editor_absoluteY="290dp"
         android:layout_marginTop="270dp"
-        android:layout_marginLeft="150dp"/>
+        android:layout_marginLeft="150dp"
+        android:textSize="32sp"
+        android:layout_centerHorizontal="true"/>
 
     <Button
         android:id="@+id/alltasks"
