@@ -7,21 +7,79 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_x="167dp"
+        android:layout_y="55dp"
+        android:text="Your TODO List"
+        android:textSize="40sp"
+        android:layout_centerHorizontal="true"/>
 
-    <Button
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginTop="40dp" />
+
+    <RadioGroup
+        android:id="@+id/choices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/newTaskName"
+
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/listTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:paddingRight="20dp"
+            android:text="New List" />
+
+        <RadioButton
+            android:id="@+id/progressTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:paddingRight="20dp"
+            android:text="New Progress" />
+
+        <RadioButton
+            android:id="@+id/reminderTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="New Reminder" />
+    </RadioGroup>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addTask"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="bangaring"
-        tools:layout_editor_absoluteX="119dp"
-        tools:layout_editor_absoluteY="70dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"/>
+        android:layout_below="@+id/choices"
+        android:layout_marginLeft="175dp"
+
+        android:layout_x="180dp"
+        android:layout_y="615dp"
+        android:clickable="true"
+        android:contentDescription="Add"
+        app:srcCompat="@android:drawable/ic_menu_add" />
+
+    <EditText
+        android:id="@+id/newTaskName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:layout_below="@+id/recyclerview"
+
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="New Task Name" />
+
 
 </RelativeLayout>

@@ -10,6 +10,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalProject">
         <activity
+            android:name=".ExistingProgressTask"
+            android:exported="false" />
+        <activity
+            android:name=".ExistingReminderTask"
+            android:exported="false" />
+        <activity
+            android:name=".ExistingListTask"
+            android:exported="false" />
+        <activity
+            android:name=".ReminderTask"
+            android:exported="false" />
+        <activity
+            android:name=".ProgressTask"
+            android:exported="false" />
+        <activity
+            android:name=".ListTask"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
