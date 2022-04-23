@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ProgressTask extends AppCompatActivity {
 
@@ -40,19 +42,25 @@ public class ProgressTask extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 DBHelper DB = new DBHelper(v.getContext());
+
                 EditText min = (EditText) findViewById(R.id.minimum);
                 EditText max = (EditText) findViewById(R.id.maximum);
                 EditText objective = (EditText) findViewById(R.id.objective);
-                DB.addProgress(Integer.parseInt(taskID),taskName,Integer.parseInt(min.getText().toString()),Integer.parseInt(max.getText().toString()),objective.getText().toString());
-                Intent intent = new Intent(v.getContext(), ExistingProgressTask.class);
-                intent.putExtra("id", taskID);
-                intent.putExtra("name", taskName);
-                intent.putExtra("type", taskType);
-                intent.putExtra("min", Integer.parseInt(min.getText().toString()));
-                intent.putExtra("max", Integer.parseInt(max.getText().toString()));
-                intent.putExtra("objective", objective.getText().toString());
-                startActivity(intent);
+                if (TextUtils.isEmpty(min.getText().toString()) || TextUtils.isEmpty(max.getText().toString())||TextUtils.isEmpty(objective.getText().toString())) {
+                    Toast.makeText(ProgressTask.this, "All fields must be filled", Toast.LENGTH_SHORT).show();
 
+
+                }else{
+                    DB.addProgress(Integer.parseInt(taskID), taskName, Integer.parseInt(min.getText().toString()), Integer.parseInt(max.getText().toString()), objective.getText().toString());
+                    Intent intent = new Intent(v.getContext(), ExistingProgressTask.class);
+                    intent.putExtra("id", taskID);
+                    intent.putExtra("name", taskName);
+                    intent.putExtra("type", taskType);
+                    intent.putExtra("min", Integer.parseInt(min.getText().toString()));
+                    intent.putExtra("max", Integer.parseInt(max.getText().toString()));
+                    intent.putExtra("objective", objective.getText().toString());
+                    startActivity(intent);
+                }
             }
         });
 

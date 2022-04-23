@@ -39,8 +39,7 @@ public class MainActivity extends AppCompatActivity {
         Cursor res = DB.getTasks();
 
         if(res.getCount() == 0) {
-            Toast.makeText(MainActivity.this, "No Entry Exists", Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(MainActivity.this, "You Have No Tasks", Toast.LENGTH_SHORT).show();
         }
 
         StringBuffer buffer = new StringBuffer();
@@ -96,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
     private void createNewTask(Intent intent, String type){
 
     DB.addTask(type, taskName);
-    Cursor res = DB.getTask(taskName);
+    Cursor res = DB.getLastTask();
     res.moveToNext();
     intent.putExtra("id", res.getString(0));
     intent.putExtra("name", taskName);

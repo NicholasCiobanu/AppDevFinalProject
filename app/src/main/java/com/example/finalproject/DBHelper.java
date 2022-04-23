@@ -20,7 +20,7 @@ public class DBHelper extends SQLiteOpenHelper {
         DB.execSQL("create Table listTasks(taskID INTEGER primary key, content TEXT, FOREIGN KEY(taskID) REFERENCES allTasks(taskID) ON DELETE CASCADE)");
         DB.execSQL("create Table reminderTasks(taskID INTEGER primary key, name TEXT, objective TEXT,content TEXT,notification INTEGER,notificationDelay INTEGER," +
                 "FOREIGN KEY(taskID) REFERENCES allTasks(taskID) ON DELETE CASCADE)");
-        DB.execSQL("create Table progressTasks(taskID INTEGER primary key, name TEXT, min INTEGER,max INTEGER, objective TEXT," +
+        DB.execSQL("create Table progressTasks(taskID INTEGER primary key, name TEXT, min INTEGER,max INTEGER, objective TEXT,progress INTEGER DEFAULT 0," +
                 " FOREIGN KEY(taskID) REFERENCES allTasks(taskID) ON DELETE CASCADE)");
     }
 
@@ -29,6 +29,7 @@ public class DBHelper extends SQLiteOpenHelper {
         DB.execSQL("drop Table if exists allTasks");
         DB.execSQL("drop Table if exists reminderTasks");
         DB.execSQL("drop Table if exists progressTasks");
+        DB.execSQL("drop Table if exists listTasks");
     }
     @Override
     public void onOpen(SQLiteDatabase db) {
@@ -80,14 +81,17 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return cursor;
     }
-    public Cursor getTask(String name) {
+    public Cursor getLastTask() {
         SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from allTasks where name = ?", new String[] { name + "" } );
-
+        Cursor cursor = DB.rawQuery("SELECT * FROM allTasks ORDER BY taskID DESC LIMIT 1", null);
         return cursor;
     }
 
-
+    public Cursor getTask(int id) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor = DB.rawQuery("Select * from allTasks where taskID = ?", new String[] { id + "" } );
+        return cursor;
+    }
     public Boolean addReminder(int taskID, String name, String objective, String content, int notification, int notificationDelay){
 
         SQLiteDatabase DB = this.getWritableDatabase();

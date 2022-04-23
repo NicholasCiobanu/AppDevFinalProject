@@ -56,7 +56,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             public void onClick(View view) {
                 if (data.get(position)[1].equals("reminder")){
                     DBHelper DB = new DBHelper(view.getContext());
-                    Cursor res = DB.getTask(data.get(position)[2]);
+                    Cursor res = DB.getTask(position + 1);
                     res.moveToFirst();
                     Cursor res2 = DB.getReminder(Integer.parseInt(res.getString(0)));
                     res2.moveToFirst();
@@ -72,7 +72,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 }
                 if (data.get(position)[1].equals("progress")){
                     DBHelper DB = new DBHelper(view.getContext());
-                    Cursor res = DB.getTask(data.get(position)[2]);
+                    Cursor res = DB.getTask(position + 1);
                     res.moveToFirst();
                     Cursor res2 = DB.getProgress(Integer.parseInt(res.getString(0)));
                     res2.moveToFirst();
@@ -88,7 +88,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 }
                 if (data.get(position)[1].equals("list")){
                     DBHelper DB = new DBHelper(view.getContext());
-                    Cursor res = DB.getTask(data.get(position)[2]);
+                    Cursor res = DB.getTask(position + 1);
                     res.moveToFirst();
                     Cursor res2 = DB.getList(Integer.parseInt(res.getString(0)));
                     res2.moveToFirst();
