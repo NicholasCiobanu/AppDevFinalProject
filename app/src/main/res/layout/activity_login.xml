@@ -56,23 +56,23 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
-        android:id="@+id/google"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginBottom="140dp"
-        android:text="login with google"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
+    <ImageView
         android:id="@+id/github"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="124dp"
+        android:layout_width="110dp"
+        android:layout_height="102dp"
+        android:layout_marginStart="64dp"
         android:layout_marginBottom="64dp"
-        android:text="login with github"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/github" />
+
+    <ImageView
+        android:id="@+id/google"
+        android:layout_width="103dp"
+        android:layout_height="101dp"
+        android:layout_marginEnd="76dp"
+        android:layout_marginBottom="64dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/google" />
 </androidx.constraintlayout.widget.ConstraintLayout>

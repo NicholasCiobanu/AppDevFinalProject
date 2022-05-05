@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -24,8 +25,8 @@ public class Login extends AppCompatActivity {
     EditText username;
     EditText password;
     DBHelper DB;
-    Button google;
-    Button github;
+    ImageView google;
+    ImageView github;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
     @Override
@@ -35,8 +36,8 @@ public class Login extends AppCompatActivity {
         DB = new DBHelper(this);
         login = (Button) findViewById(R.id.login);
         signup = (Button) findViewById(R.id.signup);
-        google = (Button) findViewById(R.id.google);
-        github = (Button) findViewById(R.id.github);
+        google = (ImageView) findViewById(R.id.google);
+        github = (ImageView) findViewById(R.id.github);
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
 

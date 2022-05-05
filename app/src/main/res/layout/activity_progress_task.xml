@@ -16,15 +16,6 @@
         android:layout_marginLeft="20dp"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="175dp"
-        android:layout_marginTop="40dp"
-        android:text="Progress Task"
-        android:textSize="32sp"
-        android:layout_centerHorizontal="true"></TextView>
-
-    <TextView
         android:id="@+id/taskName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

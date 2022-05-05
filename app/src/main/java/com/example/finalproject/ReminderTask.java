@@ -73,7 +73,7 @@ public class ReminderTask extends AppCompatActivity {
                     notification = 0;
                 }
 
-                if (!TextUtils.isEmpty(notificationDelay.getText().toString())){
+                if (!TextUtils.isEmpty(notificationDelay.getText().toString()) && !TextUtils.isEmpty(content.getText().toString())){
                     DB.addReminder(Integer.parseInt(taskID),taskName,objective.getText().toString(),content.getText().toString(),notification,Integer.parseInt(notificationDelay.getText().toString()));
                     Intent intent = new Intent(v.getContext(), ExistingReminderTask.class);
                     intent.putExtra("id", taskID);
