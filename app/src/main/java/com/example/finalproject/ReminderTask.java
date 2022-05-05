@@ -5,9 +5,12 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
@@ -28,7 +31,7 @@ public class ReminderTask extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder_task);
-
+        createNotificationChannel();
         Intent intent = getIntent();
         taskName = intent.getStringExtra("name");
         taskType = intent.getStringExtra("type");
@@ -51,13 +54,25 @@ public class ReminderTask extends AppCompatActivity {
                 EditText objective = (EditText) findViewById(R.id.reminderObjective);
                 EditText content = (EditText) findViewById(R.id.reminderText);
                 CheckBox checkBox = (CheckBox) findViewById(R.id.reminderCheckBox);
+                EditText notificationDelay = (EditText) findViewById(R.id.reminderDelay);
                 int notification;
                 if (checkBox.isChecked()){
                     notification = 1;
+
+                    Intent intent2 = new Intent(ReminderTask.this,ReminderBroadCast.class);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(ReminderTask.this,0,intent2,PendingIntent.FLAG_IMMUTABLE);
+
+                    AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+                    long timeAtButtonClick = System.currentTimeMillis();
+
+                    alarmManager.set(AlarmManager.RTC_WAKEUP,timeAtButtonClick + Integer.parseInt(notificationDelay.getText().toString()) * 60000 ,pendingIntent);
+
                 }
-                else
+                else {
                     notification = 0;
-                EditText notificationDelay = (EditText) findViewById(R.id.reminderDelay);
+                }
+
                 if (!TextUtils.isEmpty(notificationDelay.getText().toString())){
                     DB.addReminder(Integer.parseInt(taskID),taskName,objective.getText().toString(),content.getText().toString(),notification,Integer.parseInt(notificationDelay.getText().toString()));
                     Intent intent = new Intent(v.getContext(), ExistingReminderTask.class);
@@ -66,42 +81,32 @@ public class ReminderTask extends AppCompatActivity {
                     intent.putExtra("type", taskType);
                     intent.putExtra("objective", objective.getText().toString());
                     intent.putExtra("content", content.getText().toString());
-                    intent.putExtra("notification", notification);
-                    intent.putExtra("notificationDelay", Integer.parseInt(notificationDelay.getText().toString()));
-
-                    CountDownTimer cdt = new CountDownTimer(3000, 1000) {
-
-                        @Override
-                        public void onTick(long millisUntilFinished) {
-                            //code for regular intervals or nothing
-                        }
-
-                        @Override
-                        public void onFinish() {
-                            NotificationCompat.Builder builder = new NotificationCompat.Builder(ReminderTask.this, "My Notification");
-                            builder.setContentTitle("A TASK TIMER IS DONE");
-                            builder.setContentText("Reminder for" + taskName);
-                            builder.setSmallIcon(R.drawable.ic_launcher_background);
-                            builder.setAutoCancel(true);
-
-                            NotificationManagerCompat managerCompat = NotificationManagerCompat.from(ReminderTask.this);
-                            managerCompat.notify(1, builder.build());
-
-                        }
-                    };
-
-                    cdt.start();
-
+                    intent.putExtra("notification", notification + "");
+                    intent.putExtra("notificationDelay", notificationDelay.getText().toString());
 
                     startActivity(intent);
                 }
                 else {
                     Toast.makeText(ReminderTask.this, "Inproper input", Toast.LENGTH_SHORT).show();
+
                 }
                 
 
             }
         });
+    }
+
+    private void createNotificationChannel() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "reminderChannel";
+            String description = "channel for the reminder";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("notify",name,importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }
 

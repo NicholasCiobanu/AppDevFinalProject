@@ -20,8 +20,8 @@ public class ExistingReminderTask extends AppCompatActivity {
     String taskID;
     String objective;
     String content;
-    int notification;
-    int notificationDelay;
+    String notification;
+    String notificationDelay;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,8 +33,9 @@ public class ExistingReminderTask extends AppCompatActivity {
         taskID = intent.getStringExtra("id");
         objective = intent.getStringExtra("objective");
         content = intent.getStringExtra("content");
-        notification = Integer.parseInt(intent.getStringExtra("notification"));
-        notificationDelay = Integer.parseInt(intent.getStringExtra("notificationDelay"));
+        notificationDelay = intent.getStringExtra("notificationDelay");
+        notification = intent.getStringExtra("notification");
+
         TextView taskNameView = findViewById(R.id.taskName);
         taskNameView.setText(taskName);
         TextView objectiveView = findViewById(R.id.reminderObjective);
@@ -42,11 +43,12 @@ public class ExistingReminderTask extends AppCompatActivity {
         TextView contentView = findViewById(R.id.reminderText);
         contentView.setText(content);
         CheckBox notificationView = (CheckBox) findViewById(R.id.reminderCheckBox);
-        if (notification == 1){
+        if (Integer.parseInt(notification) == 1){
             notificationView.setChecked(true);
         }
+        notificationView.setEnabled(false);
         TextView notificationDelayView = findViewById(R.id.reminderDelay);
-        notificationDelayView.setText("Time left:" + notificationDelay + "");
+        notificationDelayView.setText("You set the reminder to:" + notificationDelay + "minutes");
 
         Button button = (Button) findViewById(R.id.alltasks);
         button.setOnClickListener(new View.OnClickListener() {
