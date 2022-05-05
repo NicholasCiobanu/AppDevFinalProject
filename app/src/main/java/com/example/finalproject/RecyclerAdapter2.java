@@ -46,7 +46,7 @@ public class RecyclerAdapter2 extends RecyclerView.Adapter<RecyclerAdapter2.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder,@SuppressLint("RecyclerView") int position) {
 
-        if (data.length() > 0){
+        if (item.length > 0){
             String[] temp;
         for (int i = 0 ; i < item.length ; i++){
 
@@ -63,6 +63,15 @@ public class RecyclerAdapter2 extends RecyclerView.Adapter<RecyclerAdapter2.View
 
         holder.button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
+                if(item.length == 1) {
+
+                    DBHelper DB = new DBHelper(context);
+                    DB.deleteTask(id);
+                    Intent intent = new Intent(context, MainActivity.class);
+                    context.startActivity(intent);
+                }
+
                 DBHelper DB = new DBHelper(v.getContext());
 
 
@@ -92,14 +101,23 @@ public class RecyclerAdapter2 extends RecyclerView.Adapter<RecyclerAdapter2.View
                     // the removal element index
                     finalDetails[k++] = details[i];
                 }
-                String content = Arrays.toString(finalNames).replace("[", "").replace("]", "") + "\n" + Arrays.toString(finalDetails).replace("[", "").replace("]", "");
+                String content = "";
+                for (int i = 0 ; i < finalDetails.length ; i++){
+                    if (i == finalDetails.length - 1){
+                        content += finalNames[i] + "," +finalDetails[i];
+                    }else{
+                        content += finalNames[i] + "," +finalDetails[i] + "\n";
+                    }
+
+                }
                 DB.updateList(id, content);
-                //remove name and details and redo string and update db
                 Intent intent = new Intent(v.getContext(), MainActivity.class);
                 context.startActivity(intent);
             }
         });
-        }else {
+
+        } else
+         {
             Toast.makeText(context, "list is empty", Toast.LENGTH_SHORT).show();
         }
     }
