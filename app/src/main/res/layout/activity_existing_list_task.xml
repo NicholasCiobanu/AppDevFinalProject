@@ -20,12 +20,12 @@
 
 
     <Button
-        android:id="@+id/addItem"
+        android:id="@+id/add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="200dp"
-        android:text="Add"
+        android:text="Add(hold for api)"
         tools:layout_editor_absoluteX="161dp"
         tools:layout_editor_absoluteY="216dp" />
 
@@ -33,25 +33,25 @@
         android:id="@+id/inputItemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="100dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Item Name"
         tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="82dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="100dp"/>
+        tools:layout_editor_absoluteY="82dp" />
 
     <EditText
         android:id="@+id/inputItemDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="150dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Item Details"
         tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="151dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="150dp"/>
+        tools:layout_editor_absoluteY="151dp" />
 
     <TextView
         android:id="@+id/textView4"
@@ -80,4 +80,13 @@
         android:layout_height="287dp"
         android:layout_below="@+id/textView4"
         android:layout_marginLeft="20dp"></androidx.recyclerview.widget.RecyclerView>
+    <Button
+        android:id="@+id/done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/recyclerview"
+        android:layout_marginTop="10dp"
+        android:text="Done" />
+
+
 </RelativeLayout>

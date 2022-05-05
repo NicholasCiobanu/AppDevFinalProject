@@ -39,7 +39,7 @@ public class RecyclerAdapter2 extends RecyclerView.Adapter<RecyclerAdapter2.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder,@SuppressLint("RecyclerView") int position) {
         String[] section = data.split("\n");
-        if (data.length() > 1){
+        if (data.length() > 0){
 
 
         String[] names = section[0].split(",");
@@ -85,12 +85,12 @@ public class RecyclerAdapter2 extends RecyclerView.Adapter<RecyclerAdapter2.View
                 context.startActivity(intent);
             }
         });
-        }else {
+        }/*else {
             DBHelper DB = new DBHelper(context);
             DB.deleteTask(id);
             Intent intent = new Intent(context, MainActivity.class);
             context.startActivity(intent);
-        }
+        }*/
     }
 
 
