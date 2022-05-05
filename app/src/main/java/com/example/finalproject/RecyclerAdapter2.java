@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,10 +21,16 @@ public class RecyclerAdapter2 extends RecyclerView.Adapter<RecyclerAdapter2.View
     Context context;
     String data;
     int id;
+    String[] item;
+    String[] names;
+    String[] details;
     public RecyclerAdapter2(Context context, String data, int id) {
         this.context = context;
         this.data = data;
         this.id = id;
+        item = data.split("\n");
+        names = new String[item.length];
+        details = new String[item.length];
     }
 
     @NonNull
@@ -38,12 +45,19 @@ public class RecyclerAdapter2 extends RecyclerView.Adapter<RecyclerAdapter2.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder,@SuppressLint("RecyclerView") int position) {
-        String[] section = data.split("\n");
+
         if (data.length() > 0){
+            String[] temp;
+        for (int i = 0 ; i < item.length ; i++){
 
+            temp = item[i].split(",");
+            for (int j = 0 ; j < temp.length ; j++){
+                names[i] = temp[0];
+                details[i] = temp[1];
+            }
 
-        String[] names = section[0].split(",");
-        String[] details = section[1].split(",");
+        }
+
         holder.name.setText(names[position]);
         holder.details.setText(details[position]);
 
@@ -85,18 +99,15 @@ public class RecyclerAdapter2 extends RecyclerView.Adapter<RecyclerAdapter2.View
                 context.startActivity(intent);
             }
         });
-        }/*else {
-            DBHelper DB = new DBHelper(context);
-            DB.deleteTask(id);
-            Intent intent = new Intent(context, MainActivity.class);
-            context.startActivity(intent);
-        }*/
+        }else {
+            Toast.makeText(context, "list is empty", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
     @Override
     public int getItemCount() {
-        return 1;
+        return item.length;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -108,8 +108,9 @@ public class ExistingListTask extends AppCompatActivity {
 
     private void addToList(String name, String description){
 
-        String content = name + "\n" + description;
-        DB.updateList(Integer.parseInt(taskID), content);
+        String addedContent = "\n" + name + "," + description;
+        DB.updateList(Integer.parseInt(taskID), content + addedContent);
+        startActivity(new Intent(getApplicationContext(),MainActivity.class));
 
 
     }

@@ -50,7 +50,7 @@ public class ListTask extends AppCompatActivity {
                 EditText detailsView = (EditText) findViewById(R.id.details);
                 String name = nameView.getText().toString();
                 String details = detailsView.getText().toString();
-                String content = name + "\n" + details;
+                String content = name + "," + details;
                 DB.addList(Integer.parseInt(taskID), content);
                 Intent intent = new Intent(v.getContext(), ExistingListTask.class);
                 intent.putExtra("id", taskID);
