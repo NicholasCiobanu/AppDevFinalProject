@@ -46,8 +46,12 @@ public class ProgressTask extends AppCompatActivity {
                 EditText min = (EditText) findViewById(R.id.minimum);
                 EditText max = (EditText) findViewById(R.id.maximum);
                 EditText objective = (EditText) findViewById(R.id.objective);
-                if (TextUtils.isEmpty(min.getText().toString()) || TextUtils.isEmpty(max.getText().toString())||TextUtils.isEmpty(objective.getText().toString())) {
-                    Toast.makeText(ProgressTask.this, "All fields must be filled", Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(min.getText().toString())
+                        || TextUtils.isEmpty(max.getText().toString())
+                        || TextUtils.isEmpty(objective.getText().toString())
+                        || Integer.parseInt(min.getText().toString()) > Integer.parseInt(max.getText().toString())
+                        || Integer.parseInt(objective.getText().toString()) > Integer.parseInt(max.getText().toString())) {
+                    Toast.makeText(ProgressTask.this, "All fields must be filled correctly", Toast.LENGTH_SHORT).show();
 
 
                 }else{

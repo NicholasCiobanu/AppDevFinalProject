@@ -43,5 +43,16 @@ public class ExistingListTask extends AppCompatActivity {
         adapter = new RecyclerAdapter2(this, content, Integer.parseInt(taskID));
         recyclerView.setAdapter(adapter);
 
+        Button done = (Button) findViewById(R.id.done);
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DBHelper DB = new DBHelper(view.getContext());
+                DB.deleteTask(Integer.parseInt(taskID));
+                Intent intent = new Intent(view.getContext(), MainActivity.class);
+                context.startActivity(intent);
+            }
+        });
+
     }
 }

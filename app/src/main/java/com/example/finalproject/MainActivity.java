@@ -1,24 +1,39 @@
 package com.example.finalproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
     //public static final String name = "com.example.myfirstapp.MESSAGE";
     Context context;
     String newTaskType = "";
@@ -26,9 +41,9 @@ public class MainActivity extends AppCompatActivity {
     DBHelper DB;
     RecyclerView recyclerView;
     RecyclerAdapter adapter;
-
+    private GoogleMap mMap;
     ArrayList<String[]> allTasks = new ArrayList<>();
-
+    ArrayList<String> allNames = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,20 +52,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         DB = new DBHelper(this);
         Cursor res = DB.getTasks();
-
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maps);
+        mapFragment.getMapAsync(this);
         if(res.getCount() == 0) {
             Toast.makeText(MainActivity.this, "You Have No Tasks", Toast.LENGTH_SHORT).show();
         }
 
-        StringBuffer buffer = new StringBuffer();
-
         while(res.moveToNext()) {
             allTasks.add(new String[]{ res.getString(0), res.getString(1), res.getString(2)});
-            /*
-            buffer.append("Name: " + res.getString(0) + "\n");
-            buffer.append("Type: " + res.getString(1) + "\n");
-            buffer.append("Date of Birth: " + res.getString(2) + "\n\n");
-            */
+            allNames.add(res.getString(2));
         }
 
         recyclerView = findViewById(R.id.recyclerview);
@@ -89,9 +99,46 @@ public class MainActivity extends AppCompatActivity {
                 else Toast.makeText(v.getContext(), "Task name cannot be empty", Toast.LENGTH_LONG).show();
             }
         });
+/*
+        CountDownTimer cdt = new CountDownTimer(3000, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                //code for regular intervals or nothing
+            }
+
+            @Override
+            public void onFinish() {
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, "My Notification");
+                builder.setContentTitle("A TASK TIMER IS DONE");
+                builder.setContentText("Reminder for" + taskName);
+                builder.setSmallIcon(R.drawable.ic_launcher_background);
+                builder.setAutoCancel(true);
+
+                NotificationManagerCompat managerCompat = NotificationManagerCompat.from(MainActivity.this);
+                managerCompat.notify(1, builder.build());
+
+            }
+        };
+
+        cdt.start();
+        AlarmManager alarmMgr;
+        PendingIntent alarmIntent;
+
+        alarmMgr = (AlarmManager)MainActivity.this.getSystemService(Context.ALARM_SERVICE);
+        Intent intent2 = new Intent(getApplicationContext(),MainActivity.class);
+        alarmIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent2, PendingIntent.FLAG_IMMUTABLE);
+
+        alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime() +
+                        3 * 1000, alarmIntent);
+
+*/
+    }
+    @Override
+    public void onBackPressed() {
 
     }
-
     private void createNewTask(Intent intent, String type){
 
     DB.addTask(type, taskName);
@@ -123,4 +170,25 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        mMap = googleMap;
+        Random random = new Random();
+        for (String name : allNames){
+            mMap.addMarker(new MarkerOptions().position(new LatLng(random.nextInt(50), random.nextInt(50))).title("Location for " + name));
+
+        }
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(@NonNull Marker marker) {
+                Toast.makeText(getApplicationContext(), marker.getTitle(), Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+
+
+    }
+
+
 }

@@ -22,6 +22,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 "FOREIGN KEY(taskID) REFERENCES allTasks(taskID) ON DELETE CASCADE)");
         DB.execSQL("create Table progressTasks(taskID INTEGER primary key, name TEXT, min INTEGER,max INTEGER, objective TEXT,progress INTEGER DEFAULT 0," +
                 " FOREIGN KEY(taskID) REFERENCES allTasks(taskID) ON DELETE CASCADE)");
+
+        DB.execSQL("create Table user(userID INTEGER primary key, username TEXT, password TEXT)");
+
     }
 
     @Override
@@ -30,6 +33,7 @@ public class DBHelper extends SQLiteOpenHelper {
         DB.execSQL("drop Table if exists reminderTasks");
         DB.execSQL("drop Table if exists progressTasks");
         DB.execSQL("drop Table if exists listTasks");
+        DB.execSQL("drop Table if exists user");
     }
     @Override
     public void onOpen(SQLiteDatabase db) {
@@ -39,6 +43,35 @@ public class DBHelper extends SQLiteOpenHelper {
             db.execSQL("PRAGMA foreign_keys=ON;");
         }
     }
+
+    public Boolean addUser(String username, String password){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("username", username);
+        contentValues.put("password", password);
+
+        long result = DB.insert("user", null, contentValues);
+
+        if(result == -1)
+            return false;
+        else
+            return true;
+
+    }
+
+    public Cursor getUser(String username) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor = DB.rawQuery("Select * from user where username = ?", new String[] { username} );
+        return cursor;
+    }
+
+    public Cursor getAllUsers() {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor = DB.rawQuery("Select * from user", null);
+        return cursor;
+    }
+
     public Boolean addTask(String type, String name){
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -122,7 +155,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("min", min);
         contentValues.put("max", max);
         contentValues.put("objective", objective);
-
+        contentValues.put("progress", min);
 
         long result = DB.insert("progressTasks", null, contentValues);
 
@@ -198,6 +231,31 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
     }
+
+    public Boolean updateProgress(int taskID,Integer progress){
+
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("taskID", taskID);
+        contentValues.put("progress", progress);
+
+        Cursor cursor = DB.rawQuery("Select * from progressTasks where taskID = ?", new String[] { taskID + "" } );
+
+        if(cursor.getCount() > 0) {
+            long result = DB.update("progressTasks", contentValues, "taskID=?", new String[] { taskID + "" } );
+
+            if(result == -1)
+                return false;
+            else
+                return true;
+
+        } else {
+            return false;
+        }
+
+    }
+
 
     public Boolean deleteReminder(Integer taskID){
 

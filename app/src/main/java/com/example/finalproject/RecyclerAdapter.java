@@ -73,7 +73,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 if (data.get(position)[1].equals("progress")){
                     DBHelper DB = new DBHelper(view.getContext());
                     Cursor res = DB.getTask(position + 1);
-                    res.moveToFirst();
+                    res.moveToNext();
                     Cursor res2 = DB.getProgress(Integer.parseInt(res.getString(0)));
                     res2.moveToFirst();
                     Intent intent = new Intent(view.getContext(), ExistingProgressTask.class);
@@ -83,7 +83,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     intent.putExtra("min", res2.getString(2));
                     intent.putExtra("max", res2.getString(3));
                     intent.putExtra("objective", res2.getString(4));
-
+                    intent.putExtra("progress", res2.getString(5));
                     context.startActivity(intent);
                 }
                 if (data.get(position)[1].equals("list")){
