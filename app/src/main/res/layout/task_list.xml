@@ -7,10 +7,10 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
         android:id="@+id/textNames"
         android:text="TASK NAME"
-        android:textSize="10sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/white"
         android:background="@color/purple_200"
@@ -19,8 +19,9 @@
         />
 
     <Button
-        android:layout_width="45dp"
+        android:id="@+id/delete"
+        android:layout_width="392dp"
         android:layout_height="wrap_content"
         android:text="X"
-        android:id="@+id/delete"></Button>
+        android:textAlignment="center"></Button>
 </LinearLayout>

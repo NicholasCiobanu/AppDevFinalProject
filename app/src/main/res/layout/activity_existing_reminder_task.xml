@@ -18,19 +18,18 @@
         android:id="@+id/taskName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="200dp"
         android:layout_marginTop="50dp"
-        tools:layout_editor_absoluteX="177dp"
-        tools:layout_editor_absoluteY="36dp"
         android:textSize="32sp"
-        android:layout_centerHorizontal="true"/>
+        tools:layout_editor_absoluteX="177dp"
+        tools:layout_editor_absoluteY="36dp" />
 
     <TextView
         android:id="@+id/reminderObjective"
-        android:layout_width="214dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="70dp"
         android:layout_marginTop="140dp"
         android:text="Reminder Objective"
         android:textSize="32sp" />
@@ -43,7 +42,8 @@
         android:layout_marginTop="250dp"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="EMPTY CONTENTS" />
+        android:hint="EMPTY CONTENTS"
+        android:backgroundTint="@color/cardview_light_background"/>
 
     <TextView
         android:id="@+id/reminderDelay"
@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/reminderText"
         android:layout_marginLeft="240dp"
-        android:text="Reminder" />
+        android:text="Notification" />
 
 
 </RelativeLayout>

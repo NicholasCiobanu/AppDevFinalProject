@@ -16,16 +16,6 @@
         tools:layout_editor_absoluteX="13dp"
         tools:layout_editor_absoluteY="11dp" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Reminder"
-        android:layout_marginLeft="175dp"
-        android:layout_marginTop="20dp"
-        android:textSize="32sp"
-        android:layout_centerHorizontal="true"/>
-
     <EditText
         android:id="@+id/reminderObjective"
         android:layout_width="214dp"
@@ -69,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/reminderText"
         android:layout_marginLeft="240dp"
-        android:text="Reminder" />
+        android:text="Notification" />
 
     <TextView
         android:id="@+id/reminderName"

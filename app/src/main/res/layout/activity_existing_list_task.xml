@@ -76,10 +76,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
-        android:layout_width="274dp"
+        android:layout_width="match_parent"
         android:layout_height="287dp"
         android:layout_below="@+id/textView4"
-        android:layout_marginLeft="20dp"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_gravity="center_horizontal"></androidx.recyclerview.widget.RecyclerView>
     <Button
         android:id="@+id/done"
         android:layout_width="wrap_content"

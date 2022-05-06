@@ -29,7 +29,8 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="160dp"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center_horizontal"/>
 
     <RadioGroup
         android:id="@+id/choices"
