@@ -16,7 +16,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase DB) {
         DB.execSQL("PRAGMA foreign_keys=ON;");
-        DB.execSQL("create Table allTasks(taskID INTEGER primary key, type TEXT, name TEXT)");
+        DB.execSQL("create Table allTasks(taskID INTEGER primary key, type TEXT, name TEXT, lat REAL DEFAULT 0, lng REAL DEFAULT 0)");
         DB.execSQL("create Table listTasks(taskID INTEGER primary key, content TEXT, FOREIGN KEY(taskID) REFERENCES allTasks(taskID) ON DELETE CASCADE)");
         DB.execSQL("create Table reminderTasks(taskID INTEGER primary key, name TEXT, objective TEXT,content TEXT,notification INTEGER,notificationDelay INTEGER," +
                 "FOREIGN KEY(taskID) REFERENCES allTasks(taskID) ON DELETE CASCADE)");
@@ -72,12 +72,14 @@ public class DBHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public Boolean addTask(String type, String name){
+    public Boolean addTask(String type, String name, double lat, double lng ){
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
         contentValues.put("type", type);
         contentValues.put("name", name);
+        contentValues.put("lat", lat);
+        contentValues.put("lng", lng);
 
         long result = DB.insert("allTasks", null, contentValues);
 

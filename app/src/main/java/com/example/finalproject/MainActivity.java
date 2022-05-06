@@ -43,10 +43,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     RecyclerAdapter adapter;
     private GoogleMap mMap;
     ArrayList<String[]> allTasks = new ArrayList<>();
-    ArrayList<String> allNames = new ArrayList<>();
-
+    ArrayList<String[]> allMarkers = new ArrayList<>();
+    int mMarkerCount = 0;
+    Marker mMarker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
        // this.context = context;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -60,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         while(res.moveToNext()) {
             allTasks.add(new String[]{ res.getString(0), res.getString(1), res.getString(2)});
-            allNames.add(res.getString(2));
+            allMarkers.add(new String[]{res.getString(2), res.getString(3), res.getString(4)});
         }
 
         recyclerView = findViewById(R.id.recyclerview);
@@ -99,41 +101,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 else Toast.makeText(v.getContext(), "Task name cannot be empty", Toast.LENGTH_LONG).show();
             }
         });
-/*
-        CountDownTimer cdt = new CountDownTimer(3000, 1000) {
 
-            @Override
-            public void onTick(long millisUntilFinished) {
-                //code for regular intervals or nothing
-            }
 
-            @Override
-            public void onFinish() {
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, "My Notification");
-                builder.setContentTitle("A TASK TIMER IS DONE");
-                builder.setContentText("Reminder for" + taskName);
-                builder.setSmallIcon(R.drawable.ic_launcher_background);
-                builder.setAutoCancel(true);
-
-                NotificationManagerCompat managerCompat = NotificationManagerCompat.from(MainActivity.this);
-                managerCompat.notify(1, builder.build());
-
-            }
-        };
-
-        cdt.start();
-        AlarmManager alarmMgr;
-        PendingIntent alarmIntent;
-
-        alarmMgr = (AlarmManager)MainActivity.this.getSystemService(Context.ALARM_SERVICE);
-        Intent intent2 = new Intent(getApplicationContext(),MainActivity.class);
-        alarmIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent2, PendingIntent.FLAG_IMMUTABLE);
-
-        alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                SystemClock.elapsedRealtime() +
-                        3 * 1000, alarmIntent);
-
-*/
     }
     @Override
     public void onBackPressed() {
@@ -141,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
     private void createNewTask(Intent intent, String type){
 
-    DB.addTask(type, taskName);
+    DB.addTask(type, taskName, mMarker.getPosition().latitude, mMarker.getPosition().longitude);
     Cursor res = DB.getLastTask();
     res.moveToNext();
     intent.putExtra("id", res.getString(0));
@@ -175,20 +144,64 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
         Random random = new Random();
-        for (String name : allNames){
-            mMap.addMarker(new MarkerOptions().position(new LatLng(random.nextInt(50), random.nextInt(50))).title("Location for " + name));
+        for (String[] marker : allMarkers){
+            mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(marker[1]), Double.parseDouble(marker[1]))).title("Location for " + marker[0]));
 
         }
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(@NonNull Marker marker) {
-                Toast.makeText(getApplicationContext(), marker.getTitle(), Toast.LENGTH_SHORT).show();
+                try {
+                    Toast.makeText(getApplicationContext(), marker.getTitle(), Toast.LENGTH_SHORT).show();
+                }catch (Exception e){
+
+                }
                 return false;
             }
         });
+/*
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
+            @Override
+            public void onMapClick(LatLng latLng) {
+
+                // Creating a marker
+                MarkerOptions markerOptions = new MarkerOptions();
+
+                // Setting the position for the marker
+                markerOptions.position(latLng);
+
+                // Setting the title for the marker.
+                // This will be displayed on taping the marker
+                markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+
+                // Clears the previously touched position
+                googleMap.clear();
+
+                // Animating to the touched position
+                googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+
+                // Placing a marker on the touched position
+                googleMap.addMarker(markerOptions);
+            }
+        });*/
+
+
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latlng) {
+                if(mMarkerCount > 0){
+                    if(mMarker != null){
+                        mMarker.remove();
+                    }
+                }
+
+                mMarker = mMap.addMarker(new MarkerOptions().position(latlng));
+                mMarkerCount++;
+            }
+        });
+    }
 
     }
 
 
-}
